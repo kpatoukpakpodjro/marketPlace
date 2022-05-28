@@ -1,0 +1,63 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProduitController ;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/users/get-data','UserController@getData')->middleware('CORS');
+
+//Auth::routes() ;
+Route::get('/home', [App\Http\Controllers\ProduitController::class, 'index'])->name('index');
+Route::get('/add-to-cart/{produit}', [App\Http\Controllers\cartController::class, 'add'])->name('add.cart') ;
+//->name('add')->middleware('auth');
+Route::get('/add-to-cart/destroy/{produit}', [App\Http\Controllers\cartController::class, 'destroy'])->name('destroy.cart') ;
+
+
+/********les route pour le produit *******/
+
+//la routes all produits
+Route::get('produits',[App\Http\Controllers\ProduitController::class, 'getProduits']) ;
+//recuperer produit par id
+Route::get('produit/{id}',[App\Http\Controllers\ProduitController::class, 'getProduitById']) ;
+//ajouter produit route
+Route::post('addProduit',[App\Http\Controllers\ProduitController::class, 'addProduit']) ;
+//pour mettre a jour un produit
+Route::put('updateProduit/{id}',[App\Http\Controllers\ProduitController::class, 'updateProduit']) ;
+//pour supprimer un artile
+Route::delete('deleteProduit/{id}',[App\Http\Controllers\ProduitController::class, 'deleteProduit']) ;
+
+/*********les routes pour la boutique *******/
+
+//la routes all boutique
+Route::get('Boutique',[App\Http\Controllers\BoutiqueController::class, 'getBoutiques']) ;
+//recuperer une boutique par son id
+Route::get('Boutique/{id}',[App\Http\Controllers\BoutiqueController::class, 'getBoutiqueById']) ;
+//ajouter une boutique
+Route::post('addBoutique',[App\Http\Controllers\BoutiqueController::class, 'addBoutique']) ;
+//pour mettre a jour un boutique
+Route::put('update/{id}',[App\Http\Controllers\BoutiqueController::class, 'updateBoutique']) ;
+//pour supprimer un boutique
+Route::delete('delete/{id}',[App\Http\Controllers\BoutiqueController::class, 'deleteBoutique']) ;
+
+
+/******les routes pour les categories ********/
+
+Route::get('Categorie',[App\Http\Controllers\CategorieController::class, 'getCategtorie']) ;
+//recuperer une Categorie par son id
+Route::get('Categorie/{id}',[App\Http\Controllers\CategorieController::class, 'getCategorieById']) ;
+//ajouter une Categorie
+Route::post('addCategorie',[App\Http\Controllers\CategorieController::class, 'addCategorie']) ;
+//pour mettre a jour une Categorie
+Route::put('update/{id}',[App\Http\Controllers\CategorieController::class, 'updateCategorie']) ;
+//pour supprimer une Categorie
+Route::delete('delete/{id}',[App\Http\Controllers\CategorieController::class, 'deleteCategorie']) ;
